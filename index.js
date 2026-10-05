@@ -1,3 +1,6 @@
+// set,get,hset,hgetall,lpush,rpop
+
+
 // import Redis from 'ioredis'
 // import express from 'express'
 
@@ -46,34 +49,34 @@
 
 
 
-import express from 'express'
-import Redis from 'ioredis'
+// import express from 'express'
+// import Redis from 'ioredis'
 
-const app = express();
-app.use(express.json());
+// const app = express();
+// app.use(express.json());
 
-const redis = new Redis("redis://localhost:6379");
-const QUEUE_KEY = 'queue:emails';
+// const redis = new Redis("redis://localhost:6379");
+// const QUEUE_KEY = 'queue:emails';
 
-app.post('/emails', async (req,res)=>{
-    const job = {
-        to:req.body.to,
-        subject:req.body.subject,
-        body:req.body.body,
-        createdAt: new Date().toISOString()
-    };
-    await redis.lpush(QUEUE_KEY, JSON.stringify(job));
-    res.json({queue:true, job});
-});
+// app.post('/emails', async (req,res)=>{
+//     const job = {
+//         to:req.body.to,
+//         subject:req.body.subject,
+//         body:req.body.body,
+//         createdAt: new Date().toISOString()
+//     };
+//     await redis.lpush(QUEUE_KEY, JSON.stringify(job));
+//     res.json({queue:true, job});
+// });
 
-app.get('/emails/proccess-one', async (req,res)=>{
-    const rawJob = await redis.rpop(QUEUE_KEY)
-    if(!rawJob) res.json({message:"no jobs are found in queue"});
+// app.get('/emails/proccess-one', async (req,res)=>{
+//     const rawJob = await redis.rpop(QUEUE_KEY)
+//     if(!rawJob) res.json({message:"no jobs are found in queue"});
 
-    const job = JSON.parse(rawJob);
-    res.json({message:"email sent", job})
-})
+//     const job = JSON.parse(rawJob);
+//     res.json({message:"email sent", job})
+// })
 
-app.listen(3000, ()=>{
-    console.log('running on 3000');
-})
+// app.listen(3000, ()=>{
+//     console.log('running on 3000');
+// })
