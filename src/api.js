@@ -1,5 +1,5 @@
 import express from 'express';
-import {emailQueue} from './queue.js';
+import {emailQueue, postQueue} from './queue.js';
 
 const app = express();
 
@@ -23,5 +23,24 @@ app.post("/welcome-emails", async (req, res)=>{
     )
     res.json({message:"welcome email added", jobId: job.id});
 })
+
+app.post("/welcome-posts", async (req,res)=>{
+    postQueue.add(
+        "posts",
+        {
+            tittle:req.body.tittle,
+            auther:req.body.auther,
+            description:req.body.description
+        },
+        {
+            attempts:2,
+            backoff:{
+                type:'exponential',
+                delay:3000
+            }
+        }
+    )
+    res.json({message:"post email added", jobId: job.id})
+});
 
 app.listen(3000);
