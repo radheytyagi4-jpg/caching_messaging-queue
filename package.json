@@ -5,15 +5,16 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "server.js",
+  "main": "kafka/kafka.js",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "node kafka/kafka.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "bullmq": "^6.3.11",
     "dotenv": "^18.0.6",
     "express": "^5.2.1",
-    "ioredis": "^6.0.0"
+    "ioredis": "^6.0.0",
+    "kafkajs": "^2.2.4"
   }
 }
